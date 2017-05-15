@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PdfViewer</string>
+    <string-array name="department_array">
+        <item>CSE</item>
+        <item>ECE</item>
+        <item>CCE</item>
+        <item>MME</item>
+        <item>ME</item>
+        <item>other..</item>
+    </string-array>
+
+</resources>
