@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
     String spinnerSelect;
     EditText mName;
     EditText mRoll;
+    String name,roll;
     Button b1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,7 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
 
 
 
-        final String name = mName.getText().toString();
-        final String roll= mRoll.getText().toString();
+
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -56,12 +56,7 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                generatePdf(name,roll,spinnerSelect);
-            }
-        });
+
 
     }
 
@@ -75,8 +70,10 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
 
     }
 
-    public  void generatePdf(String name,String roll,String spinnerSelect){
+    public  void generatePdf(String spinnerSelect){
 
+        name = mName.getText().toString();
+        roll= mRoll.getText().toString();
         String FILE = Environment.getExternalStorageDirectory().getAbsolutePath()
                 + "/"+name+".pdf";
         Document objDocument = new Document();
@@ -88,16 +85,12 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         Page objPage = new Page(PageSize.LETTER, PageOrientation.PORTRAIT,
                 54.0f);
 
-        Label objLabel = new Label(name, 0, 0, 504, 100,
-                Font.getHelvetica(), 18, TextAlign.CENTER);
-        Label objLabel2 = new Label(roll, 0, 0, 504, 100,
-                Font.getHelvetica(), 18, TextAlign.CENTER);
-        Label objLabel3 = new Label(spinnerSelect, 0, 0, 504, 100,
+        Label objLabel = new Label(name+" "+roll+" "+spinnerSelect, 0, 0, 504, 100,
                 Font.getHelvetica(), 18, TextAlign.CENTER);
 
+
         objPage.getElements().add(objLabel);
-        objPage.getElements().add(objLabel2);
-        objPage.getElements().add(objLabel3);
+
 
 
         objDocument.getPages().add(objPage);
@@ -119,5 +112,7 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
-
+    public void click(View v){
+        generatePdf(spinnerSelect);
+    }
 }
